@@ -15,7 +15,7 @@ app.listen(3000, () => {
 
 })
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario/cadastrar', (req, res) => {
     const {nome, email, senha} = req.body;
 
     const sql = `
@@ -27,7 +27,34 @@ app.post('/usuario', (req, res) => {
         sql,
         [nome, email, senha],
         (erro, resultado) => {
-            
+            if (erro) {
+                return res.status(500).json({
+                    mensagem: 'Erro ao cadastrar usuário'
+                })
+            }
+            res.json({
+                mesnsagem: 'Usuário cadastrado com sucesso'
+            })
         }
     )
+})
+
+app.get('/usuarios', (req, res) => {
+    const sql = `
+    SELECT
+        id,
+        nome,
+        email
+    FROM usuarios
+    `;
+
+    conexao.query(sql, (erro, resultado) => {
+        if (erro) {
+            return res.status(500).json({
+                mensagem: 'Erro ao buscar usuários'
+            });
+        }
+
+        res.json(resultado)
+    })
 })
