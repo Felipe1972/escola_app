@@ -33,7 +33,7 @@ app.post('/usuario/cadastrar', (req, res) => {
                 })
             }
             res.json({
-                mesnsagem: 'Usuário cadastrado com sucesso'
+                mensagem: 'Usuário cadastrado com sucesso'
             })
         }
     )
